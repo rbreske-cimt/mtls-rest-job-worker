@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1shoozx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="1.1.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1shoozx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="593d40f" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0" camunda:diagramRelationId="4a45a966-d05f-4b57-8423-1d2004fd4212" xmlns:camunda="http://camunda.org/schema/1.0/bpmn">
   <bpmn:process id="greet-process" name="Greet" isExecutable="true">
     <bpmn:startEvent id="start-event" name="start">
       <bpmn:outgoing>Flow_16yhcf2</bpmn:outgoing>
@@ -7,7 +7,7 @@
     <bpmn:sequenceFlow id="Flow_16yhcf2" sourceRef="start-event" targetRef="greet-task" />
     <bpmn:serviceTask id="greet-task" name="Greet Task">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="greet" />
+        <zeebe:taskDefinition type="mtls" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_16yhcf2</bpmn:incoming>
       <bpmn:outgoing>Flow_1b2mrjt</bpmn:outgoing>
@@ -19,14 +19,6 @@
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="greet-process">
-      <bpmndi:BPMNEdge id="Flow_16yhcf2_di" bpmnElement="Flow_16yhcf2">
-        <di:waypoint x="215" y="117" />
-        <di:waypoint x="270" y="117" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1b2mrjt_di" bpmnElement="Flow_1b2mrjt">
-        <di:waypoint x="370" y="117" />
-        <di:waypoint x="432" y="117" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start-event">
         <dc:Bounds x="179" y="99" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -42,6 +34,14 @@
           <dc:Bounds x="441" y="142" width="19" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_16yhcf2_di" bpmnElement="Flow_16yhcf2">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="270" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1b2mrjt_di" bpmnElement="Flow_1b2mrjt">
+        <di:waypoint x="370" y="117" />
+        <di:waypoint x="432" y="117" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
