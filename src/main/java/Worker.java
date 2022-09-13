@@ -25,7 +25,7 @@ import java.util.concurrent.CountDownLatch;
  */
 public class Worker {
 
-    private static final String JOB_TYPE = "greet";
+    private static final String JOB_TYPE = "mtls";
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Starting worker...");
