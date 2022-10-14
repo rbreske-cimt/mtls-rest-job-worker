@@ -1,5 +1,5 @@
-# mtls-rest-job-worker
-Camunda 8 Example for a job worker using mtls
+# mTLS-REST-Job-Worker
+Camunda 8 Example for a job worker, communicating with a REST service, using mtls.
 
 ### Connection Setup
 
@@ -7,7 +7,7 @@ Camunda 8 Example for a job worker using mtls
 
 1. Follow the [Getting Started Guide](https://docs.camunda.io/docs/guides/getting-started/) to create an account, a
    cluster and client credentials
-2. Use the client credentials to fill the following environment variables:
+2. Use the client credentials to fill the following environment variables (in Intellij IDEA by editing the runtime config):
     * `ZEEBE_ADDRESS`: Address where your cluster can be reached.
     * `ZEEBE_CLIENT_ID` and `ZEEBE_CLIENT_SECRET`: Credentials to request a new access token.
     * `ZEEBE_AUTHORIZATION_SERVER_URL`: A new token can be requested at this address, using the credentials.
@@ -19,6 +19,6 @@ For a local installation (without authentication) you only need to set `ZEEBE_AD
 
 ### Workflow
 
-Either you deploy `process.bpmn` or you design your own process with a service task with the `greet` job type.
+Either you deploy `process.bpmn` or you design your own process with a service task with the `mtls` job type.
 
 
