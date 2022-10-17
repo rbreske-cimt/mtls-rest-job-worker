@@ -24,3 +24,12 @@ hs_err_pid*
 
 # keystores (i.e. for mTLS)
 *.jks
+
+# secrets
+.env
+
+# backup files
+*.bak
+
+# target directory for compiled code, jdks etc.
+target
