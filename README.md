@@ -21,4 +21,29 @@ For a local installation (without authentication) you only need to set `ZEEBE_AD
 
 Either you deploy `process.bpmn` or you design your own process with a service task with the `mtls` job type.
 
+### Execution
 
+Set the env variables.
+
+Navigate to the project root and execute :
+```bash
+mvn compile
+mvn exec:java
+```
+
+or to package to .jar and execute run
+
+```bash
+mvn clean compile assembly:single
+java -jar target/XXX.jar
+```
+
+Because I couldn't find out how to supply `.env` files to those, I wrote a
+short sh script, which iterates through the `.env` and sets variables, executes
+all commands supplied as string arguments to the script and lastly unsets the 
+variables.
+
+So i.e.
+```bash
+./run.sh "mvn clean compile assembly:single" "java -jar target/XXX.jar"
+```
