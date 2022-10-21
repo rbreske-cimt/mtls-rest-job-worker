@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.camunda.community</groupId>
-    <artifactId>zeebe-worker-java-template</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>mtls-worker</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -100,6 +100,8 @@
                         </manifest>
                     </archive>
                     <descriptorRefs>
+                        <!-- create jar with binary of project and unpacked 
+                             dependencies -->
                         <descriptorRef>jar-with-dependencies</descriptorRef>
                     </descriptorRefs>
                 </configuration>
