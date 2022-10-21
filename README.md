@@ -31,11 +31,11 @@ mvn compile
 mvn exec:java
 ```
 
-or to package to .jar and execute run
+or to package to .jar and execute run :
 
 ```bash
 mvn clean compile assembly:single
-java -jar target/XXX.jar
+java -jar target/mtls-worker-1.0-jar-with-dependencies.jar
 ```
 
 Because I couldn't find out how to supply `.env` files to those, I wrote a
@@ -43,7 +43,36 @@ short sh script, which iterates through the `.env` and sets variables, executes
 all commands supplied as string arguments to the script and lastly unsets the 
 variables.
 
-So i.e.
+So i.e. :
 ```bash
-./run.sh "mvn clean compile assembly:single" "java -jar target/XXX.jar"
+./run.sh "java -jar target/mtls-worker-1.0-jar-with-dependencies.jar"
 ```
+
+To build the docker image execute :
+```bash
+docker build -t mtls-job-worker .
+```
+
+To deploy in Kubernetes
+```bash
+kubectl create -f deployment.yaml
+```
+
+### Contribution
+
+There is not a lot to take care of when contributing to this project.
+Open a branch and PR for anything you work on. The latter may be opened as draft as long as it's WIP.
+
+Construct your commit messages as "<topic1,...,topicN>: <short description>" where topic 1 through N are one or more of :
+- Maven
+- JobWorker
+- Docker
+- k8s
+- Git
+Try to choose the best fit(s).
+If what you did is completely new, just update this list here with whatever new category you used.
+If you're unsure, have a look at the history for the file that you're working on.
+
+README updates may just be "Update README.md" because it's more of a meta thing and I don't think anyone will ever care.
+
+When merging choose the rebase-merge strategy (if you use the GUI delete the branch afterwards or make sure to update from main because of the changed commit ids).
