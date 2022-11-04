@@ -1,31 +1,41 @@
 # mTLS-REST-Job-Worker
 Camunda 8 Example for a job worker, communicating with a REST service, using mtls.
 
-### Connection Setup
+## Preparation 
 
-#### Connect to Camunda Platform 8 SaaS Cluster
-
-1. Follow the [Getting Started Guide](https://docs.camunda.io/docs/guides/getting-started/) to create an account, a
-   cluster and client credentials
-2. Use the client credentials to fill the following environment variables (in Intellij IDEA by editing the runtime config):
-    * `ZEEBE_ADDRESS`: Address where your cluster can be reached.
-    * `ZEEBE_CLIENT_ID` and `ZEEBE_CLIENT_SECRET`: Credentials to request a new access token.
-    * `ZEEBE_AUTHORIZATION_SERVER_URL`: A new token can be requested at this address, using the credentials.
-3. Run `Worker`
-
-#### Connect to local Installation
-
-For a local installation (without authentication) you only need to set `ZEEBE_ADDRESS`
-
-### Workflow
+### Deploy a Workflow
 
 Either you deploy `process.bpmn` or you design your own process with a service task with the `mtls` job type.
 
-### Execution
+### Set the env variables for the cluster connection
 
-Set the env variables.
+Depending on your use case choose one of the following
 
-Navigate to the project root and execute :
+##### 1. Connect to Camunda Platform 8 SaaS Cluster
+
+Use the client credentials to fill the following environment variables (can be with .env file as explained in **Execution** below) :
+    * `ZEEBE_ADDRESS`: Address where your cluster can be reached.
+    * `ZEEBE_CLIENT_ID` and `ZEEBE_CLIENT_SECRET`: Credentials to request a new access token.
+    * `ZEEBE_AUTHORIZATION_SERVER_URL`: A new token can be requested at this address, using the credentials.
+
+##### 2. Connect to local Installation or Self Managed
+
+For a local installation (without authentication) you only need to set `ZEEBE_ADDRESS`
+
+### mTLS setup
+
+Place your Certificate Authority public certificate in cacerts :
+```bash
+keytool -cacerts -importcert -trustcacerts -alias ca -file <your cert>
+```
+
+and your keystore (which holds the ca cert and the signed client cert, aswell as key)
+in the root of this project.
+
+## Execution
+
+### locally
+From the project root and execute :
 ```bash
 mvn compile
 mvn exec:java
@@ -48,31 +58,26 @@ So i.e. :
 ./run.sh "java -jar target/mtls-worker-1.0-jar-with-dependencies.jar"
 ```
 
+### In docker 
+
 To build the docker image execute :
 ```bash
 docker build -t mtls-job-worker .
 ```
 
-To deploy in Kubernetes
+To run it :
 ```bash
-kubectl create -f deployment.yaml
+docker run mtls-job-worker
 ```
 
-### Contribution
+### In Kubernetes
 
-There is not a lot to take care of when contributing to this project.
-Open a branch and PR for anything you work on. The latter may be opened as draft as long as it's WIP.
+In the deployment.yaml you can configure what image should be used.
+Per default it expects it locally under mtls-job-worker.
+Feel free to push your image to dockerhub and reference that one though.
 
-Construct your commit messages as "<topic1,...,topicN>: <short description>" where topic 1 through N are one or more of :
-- Maven
-- JobWorker
-- Docker
-- k8s
-- Git
-Try to choose the best fit(s).
-If what you did is completely new, just update this list here with whatever new category you used.
-If you're unsure, have a look at the history for the file that you're working on.
-
-README updates may just be "Update README.md" because it's more of a meta thing and I don't think anyone will ever care.
-
-When merging choose the rebase-merge strategy (if you use the GUI delete the branch afterwards or make sure to update from main because of the changed commit ids).
+To deploy in Kubernetes
+```bash
+kubectl create namespace mtls-example # if you don't want this namespace, change it in the deployment yaml
+kubectl create -f deployment.yaml
+```
