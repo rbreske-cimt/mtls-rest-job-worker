@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mtls-job-worker-deployment
+  namespace: mtls-example
   labels:
     app: mtls-job-worker
 spec:
@@ -16,5 +17,4 @@ spec:
     spec:
       containers:
       - name: mtls-job-worker
-        image: mtls-job-worker
-        imagePullPolicy: Never
+        image: englaender/mtls-job-worker
