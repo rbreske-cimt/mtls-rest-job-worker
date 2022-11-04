@@ -32,6 +32,10 @@ COPY --from=maven /mtls-worker/target/mtls-worker-1.0-jar-with-dependencies.jar 
 COPY --from=maven /mtls-worker/run.sh run.sh
 COPY .env .env
 COPY client_keystore.jks client_keystore.jks
+COPY ca.pem ca.pem
+
+# add ca cert to jvm truststore
+RUN keytool -importcert -cacerts -trustcacerts -alias ca -file ca.pem -storepass changeit -noprompt
 
 # execute jdk using the run wrapper which setsenv variabels from .env
 CMD ["./run.sh", "java -jar worker.jar"]
