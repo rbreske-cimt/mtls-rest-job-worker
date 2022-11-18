@@ -22,8 +22,9 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# keystores (i.e. for mTLS)
-*.jks
+# keystores and certificates in root and src
+src/main/resources/*.pkcs12
+/*.pem
 
 # secrets
 *.env
@@ -31,5 +32,5 @@ hs_err_pid*
 # backup files
 *.bak
 
-# target directory for compiled code, jdks etc.
+# maven target directory for compiled code, jdks etc.
 target
