@@ -31,7 +31,7 @@ WORKDIR /mtls-worker/ready
 COPY --from=maven /mtls-worker/target/mtls-worker-1.0-jar-with-dependencies.jar worker.jar
 COPY --from=maven /mtls-worker/run.sh run.sh
 COPY .env .env
-COPY client_keystore.jks client_keystore.jks
+COPY client_keystore.pkcs12 client_keystore.pkcs12
 COPY ca.pem ca.pem
 
 # add ca cert to jvm truststore
