@@ -12,31 +12,34 @@ class WorkerJobHandlerTest {
     private final WorkerJobHandler sutJubHandler = new WorkerJobHandler();
 
     @Test
-    public void testDefaultBehavior() {
-        // given
+    public void testJobTermination() {
         final JobClientStub jobClient = new JobClientStub();
         final ActivatedJobStub activatedJob = jobClient.createActivatedJob();
 
-        // when
+        // since we don't have a Server running we cannot test these parameters
+        activatedJob.setCustomHeaders(Collections.singletonMap("host", "this"));
+        activatedJob.setCustomHeaders(Collections.singletonMap("port", "15"));
+        activatedJob.setCustomHeaders(Collections.singletonMap("path", "/ignored"));
+
+        // run job
         sutJubHandler.handle(jobClient, activatedJob);
 
-        // then
-        assertThat(activatedJob).completed().extractingOutput().containsOnly(entry("message", "Hello Zeebe user!"));
+        // assert that the job terminates
+        assertThat(activatedJob).completed();
     }
 
     @Test
-    public void testMessageGeneration() {
-        // given
-        final JobClientStub jobClient = new JobClientStub();
-        final ActivatedJobStub activatedJob = jobClient.createActivatedJob();
+    public void testmTLSClient() {
+        Exception e = null;
+        try {
+            final mTLSClient client = new mTLSClient();
+        }
+        catch(Exception caught) {
+            e = caught;
+            System.out.print(e.getMessage());
+        }
 
-        activatedJob.setCustomHeaders(Collections.singletonMap("greeting", "Howdy"));
-        activatedJob.setInputVariables(Collections.singletonMap("name", "ladies and gentlemen"));
-
-        // when
-        sutJubHandler.handle(jobClient, activatedJob);
-
-        // then
-        assertThat(activatedJob).completed().extractingOutput().containsOnly(entry("message", "Howdy ladies and gentlemen!"));
+        // make sure nothing went wrong on mTLS client initialization
+        assert e == null;
     }
 }
