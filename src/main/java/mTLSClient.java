@@ -47,7 +47,7 @@ public class mTLSClient {
         Properties appProps = new Properties();
         appProps.load(new FileInputStream(appConfigPath));
 
-        this.keystorePath = appProps.getProperty("worker.ssl.keystore");
+        this.keystorePath = rootPath + appProps.getProperty("worker.ssl.keystore");
         this.keystorePW = appProps.getProperty("worker.ssl.keystorePW");
         this.keyPW = appProps.getProperty("worker.ssl.keyPW");
     }
