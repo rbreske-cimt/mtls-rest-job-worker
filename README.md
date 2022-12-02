@@ -84,18 +84,24 @@ To run it :
 docker run mtls-job-worker
 ```
 
-### In Kubernetes
+### In Kubernetes using helm
 
-In the deployment.yaml you can configure what image should be used.
-Per default it expects it locally under mtls-job-worker.
-Feel free to push your image to dockerhub and reference that one though.
-
-To deploy in Kubernetes
+The project is wrapped using helm.
+One can add it from this projects github pages
 ```bash
-kubectl create namespace mtls-example # if you don't want this namespace, change it in the deployment yaml
-kubectl create -f deployment.yaml
+helm repo add mTLS-job-worker https://englaender.github.io/mtls-rest-job-worker/
 ```
 
+and after you configured kube to point to the correct cluster, you can simply run
+```bash
+helm install mtls-job-worker /mTLS-job-worker
+```
+
+Until this process is automized, update the gh-pages branch by, deleting everything there, copying the helm-chart directory over and running
+```bash
+helm package ./helm-chart
+helm repo indnex .
+```
 
 ### Testing
 
